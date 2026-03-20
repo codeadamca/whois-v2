@@ -30,3 +30,9 @@ function exampleFunction($domain) {
     // Placeholder logic
     return "You entered: " . htmlspecialchars($domain);
 }
+
+// Get DNS records for a domain
+function getDnsRecords($domain) {
+    $records = dns_get_record($domain, DNS_ANY);
+    return $records ?: [];
+}
