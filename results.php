@@ -4,8 +4,12 @@ loadEnv(__DIR__ . '/.env');
 
 $domain = $_POST['domain'] ?? '';
 $result = '';
+$dnsRecords = [];
+$subdomains = [];
 if ($domain) {
     $result = getWhoisData($domain);
+    $dnsRecords = getDnsRecords($domain);
+    $subdomains = getExistingSubdomains($domain);
 }
 ?>
 <!DOCTYPE html>
@@ -23,6 +27,14 @@ if ($domain) {
             <?php if ($domain): ?>
                 <h4>Domain: <?php echo htmlspecialchars($domain); ?></h4>
                 <pre class="w3-code w3-light-grey"><?php echo htmlspecialchars($result); ?></pre>
+            <?php if ($domain && $dnsRecords): ?>
+                <h4>DNS Records:</h4>
+                <pre class="w3-code w3-light-grey"><?php echo htmlspecialchars(print_r($dnsRecords, true)); ?></pre>
+            <?php endif; ?>
+            <?php if ($domain && $subdomains): ?>
+                <h4>Subdomains:</h4>
+                <pre class="w3-code w3-light-grey"><?php echo htmlspecialchars(print_r($subdomains, true)); ?></pre>
+            <?php endif; ?>
             <?php else: ?>
                 <p class="w3-center">No domain submitted.</p>
             <?php endif; ?>
