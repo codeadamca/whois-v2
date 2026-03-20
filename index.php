@@ -1,3 +1,7 @@
+<?php
+require_once __DIR__ . '/functions.php';
+loadEnv(__DIR__ . '/.env');
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,11 +14,15 @@
 <body>
 	<div class="w3-container w3-margin-top">
 		<div class="w3-card w3-padding w3-center" style="max-width:400px;margin:auto;">
-			<form method="post" action="">
+			<form method="post" action="results.php">
 				<label for="domain" class="w3-large">Enter domain name:</label><br>
 				<input class="w3-input w3-border w3-margin-top" type="text" id="domain" name="domain" required placeholder="example.com">
 				<button class="w3-button w3-blue w3-margin-top" type="submit">Lookup</button>
 			</form>
+		</div>
+		<div class="w3-margin-top w3-small">
+			<strong>Environment:</strong> <?php echo htmlspecialchars($_ENV['APP_ENV'] ?? ''); ?><br>
+			<strong>API Key:</strong> <?php echo htmlspecialchars($_ENV['API_KEY'] ?? ''); ?>
 		</div>
 	</div>
 </body>
